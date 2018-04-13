@@ -6,6 +6,7 @@ import { Header } from "../header/header";
 import { SearchPanel } from "../searchPanel/searchPanel";
 import { MoviesList } from "../moviesList/moviesList";
 import { NavPanel } from "../navPanel/navPanel";
+import { MovieDetail } from "../movieDetail/movieDetail";
 import { Movie } from "../../models/Movie";
 import "./app.css";
 
@@ -68,52 +69,21 @@ const MOVIES_LIST = [
 ];
 
 export class App extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
-      searchByParam: 'title',
-      searchString: '',
-      sortByParam: 'releaseDate',
-      moviesList: this.sortMoviesBy(MOVIES_LIST, 'releaseDate')
+      currentMovie: MOVIES_LIST[0],
+      moviesList: MOVIES_LIST //TODO find movies by genres
     };
-  }
-
-  handleSort = sortParam => e => {
-    e.preventDefault();
-    this.setState({
-      ...this.state,
-      sortByParam: sortParam,
-      moviesList: this.sortMoviesBy(this.state.moviesList, sortParam)
-    });
-  }
-
-  sortMoviesBy = (moviesList, param) => {
-    return sortBy(moviesList, param);
-  }
-
-  handleSearch = (searchParams) => {
-    this.setState({
-      ...this.state,
-      searchByParam: searchParams.searchByParam,
-      searchString: searchParams.searchString,
-      moviesList: this.sortMoviesBy(this.state.moviesList, this.state.sortByParam)    //TODO search
-    });
   }
 
   render() {
     return (
       <Fragment>
-        <Header isMainPage={true} />
+        <Header isMainPage={false} />
         <main className="container py-3">
-          <SearchPanel searchByParam={this.state.searchByParam} searchString={this.state.searchString} searchHandler={this.handleSearch} />
-          <NavPanel direction={'right'}
-            primaryBrand={'7 movies found'}
-            secondaryBrand={'Sort by'}
-            links={[
-              { title: 'release date', param: 'releaseDate', active: this.state.sortByParam === 'releaseDate', handler: this.handleSort },
-              { title: 'rating', param: 'voteAvg', active: this.state.sortByParam === 'voteAvg', handler: this.handleSort }
-            ]} />
+          <MovieDetail movie={this.state.currentMovie} />
+          <NavPanel direction={'left'} secondaryBrand={'Films by'} links={[{ title: `Genre: ${this.state.currentMovie.genres.join(', ')}`, active: true }]} />
           <MoviesList movies={this.state.moviesList} />
         </main>
         <Footer />

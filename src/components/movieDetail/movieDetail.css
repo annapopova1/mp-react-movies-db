@@ -1,0 +1,10 @@
+.big-movie-image {
+  height: 400px;
+  width: 1000px;
+  display: block;
+}
+
+.rating {
+  line-height: 1.7em;
+  border-radius: 2em;
+}
