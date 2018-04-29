@@ -1,6 +1,7 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { sortBy } from "lodash";
 
+import { ErrorHandler } from "../errorHandler/errorHandler";
 import { Footer } from "../footer/footer";
 import { Header } from "../header/header";
 import { SearchPanel } from "../searchPanel/searchPanel";
@@ -103,7 +104,7 @@ export class App extends Component {
 
   render() {
     return (
-      <Fragment>
+      <ErrorHandler>
         <Header isMainPage={true} />
         <main className="container py-3">
           <SearchPanel searchByParam={this.state.searchByParam} searchString={this.state.searchString} searchHandler={this.handleSearch} />
@@ -117,7 +118,7 @@ export class App extends Component {
           <MoviesList movies={this.state.moviesList} />
         </main>
         <Footer />
-      </Fragment>
+      </ErrorHandler>
     );
   }
 }

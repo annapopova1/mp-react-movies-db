@@ -1,9 +1,9 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { sortBy } from "lodash";
 
+import { ErrorHandler } from "../errorHandler/errorHandler";
 import { Footer } from "../footer/footer";
 import { Header } from "../header/header";
-import { SearchPanel } from "../searchPanel/searchPanel";
 import { MoviesList } from "../moviesList/moviesList";
 import { NavPanel } from "../navPanel/navPanel";
 import { MovieDetail } from "../movieDetail/movieDetail";
@@ -79,7 +79,7 @@ export class App extends Component {
 
   render() {
     return (
-      <Fragment>
+      <ErrorHandler>
         <Header isMainPage={false} />
         <main className="container py-3">
           <MovieDetail movie={this.state.currentMovie} />
@@ -87,7 +87,7 @@ export class App extends Component {
           <MoviesList movies={this.state.moviesList} />
         </main>
         <Footer />
-      </Fragment>
+      </ErrorHandler>
     );
   }
 }
