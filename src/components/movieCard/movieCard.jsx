@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 import PropTypes from 'prop-types';
-import { Movie } from '../../models/Movie';
-import "./movieCard.css";
+import Movie from '../../models/Movie';
+import './movieCard.css';
 
-export const MovieCard = ({ movie }) => (
+const MovieCard = ({ movie }) => (
   <div className="card mb-4 box-shadow">
-    <img className="card-img-top movie-image" src={movie.posterPath}/>
+    <img className="card-img-top movie-image" src={movie.posterPath} alt="" />
     <div className="card-body">
       <div className="d-flex justify-content-between">
         <p className="card-text">{movie.title}</p>
@@ -16,6 +16,9 @@ export const MovieCard = ({ movie }) => (
   </div>
 );
 
-MovieCard.PropTypes = {
-  movie: PropTypes.instanceOf(Movie)
-}
+MovieCard.propTypes = {
+  movie: PropTypes.instanceOf(Movie).isRequired,
+};
+
+export default MovieCard;
+

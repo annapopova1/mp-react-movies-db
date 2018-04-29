@@ -1,19 +1,26 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-export class ErrorHandler extends Component {
+export default class ErrorHandler extends Component {
+  propTypes = {
+    children: PropTypes.node,
+  };
+
   constructor(props) {
     super(props);
     this.state = { hasError: false };
   }
 
   componentDidCatch(error, info) {
+    console.log(error);
+    console.log(info);
     this.setState({ hasError: true });
   }
 
   render() {
     if (this.state.hasError) {
       return (
-        <div class="alert alert-danger" role="alert">
+        <div className="alert alert-danger" role="alert">
           The application was breaking, try again later!
         </div>
       );

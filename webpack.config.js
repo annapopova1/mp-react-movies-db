@@ -24,7 +24,7 @@ module.exports = (env, other) => {
 
   return {
     context: path.resolve(__dirname, 'src'),
-    entry: './main.js',
+    entry: './main.jsx',
     output: {
       filename: '[name].js',
       path: path.resolve(__dirname, 'build')

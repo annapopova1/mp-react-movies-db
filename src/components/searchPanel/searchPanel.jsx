@@ -1,15 +1,26 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { NavPanel } from "../navPanel/navPanel";
+import NavPanel from '../navPanel/navPanel';
 
 const ENTER_KEY_CODE = 13;
 
-export class SearchPanel extends Component {
+export default class SearchPanel extends Component {
+  propTypes = {
+    searchByParam: PropTypes.string,
+    searchString: PropTypes.string,
+    searchHandler: PropTypes.func,
+  };
+
+  defaultProps = {
+    searchByParam: 'title',
+    searchString: '',
+  };
+
   constructor(props) {
     super(props);
     this.state = {
       searchByParam: props.searchByParam,
-      searchString: props.searchString
+      searchString: props.searchString,
     };
   }
 
@@ -17,7 +28,7 @@ export class SearchPanel extends Component {
     this.searchBoxRef.value = this.state.searchString;
   }
 
-  onKeyUp = event => {
+  onKeyUp = (event) => {
     const { keyCode } = event;
 
     if (keyCode === ENTER_KEY_CODE) {
@@ -25,17 +36,17 @@ export class SearchPanel extends Component {
     }
   }
 
-  onChangeSearchPattern = event => {
+  onChangeSearchPattern = () => {
     this.setState({
       ...this.state,
-      searchString: this.searchBoxRef.value
+      searchString: this.searchBoxRef.value,
     });
   }
 
-  handleSearchBy = searchByParam => e => {
+  handleSearchBy = searchByParam => () => {
     this.setState({
       ...this.state,
-      searchByParam: searchByParam
+      searchByParam,
     });
   }
 
@@ -55,26 +66,22 @@ export class SearchPanel extends Component {
             placeholder="Search..."
             onKeyUp={this.onKeyUp}
             onBlur={this.onChangeSearchPattern}
-            ref={(node) => { this.searchBoxRef = node; }} />
+            ref={(node) => { this.searchBoxRef = node; }}
+          />
         </div>
         <NavPanel
-          direction={'left'}
-          secondaryBrand={'SEARCH BY'}
+          direction="left"
+          secondaryBrand="SEARCH BY"
           links={[
-            { title: 'TITLE', param: 'title', active: this.state.searchByParam === 'title', handler: this.handleSearchBy },
-            { title: 'DIRECTOR', param: 'director', active: this.state.searchByParam === 'director', handler: this.handleSearchBy }]}
-          navBtn={{ title: 'SEARCH', handler: this.handleSearch }} />
+            {
+ title: 'TITLE', param: 'title', active: this.state.searchByParam === 'title', handler: this.handleSearchBy,
+},
+            {
+ title: 'DIRECTOR', param: 'director', active: this.state.searchByParam === 'director', handler: this.handleSearchBy,
+}]}
+          navBtn={{ title: 'SEARCH', handler: this.handleSearch }}
+        />
       </section>
     );
   }
-}
-
-SearchPanel.PropTypes = {
-  searchByParam: PropTypes.string,
-  searchString: PropTypes.string
-}
-
-SearchPanel.defaultProps = {
-  searchByParam: 'title',
-  searchString: ''
 }

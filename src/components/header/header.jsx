@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 import PropTypes from 'prop-types';
 
-export const Header = ({ isMainPage }) => (
+const Header = ({ isMainPage }) => (
   <header className="container navbar navbar-dark bg-dark py-1">
     <span className="navbar-brand">Movies DB</span>
     {!isMainPage &&
@@ -10,10 +10,12 @@ export const Header = ({ isMainPage }) => (
   </header>
 );
 
-Header.PropTypes = {
-  isMainPage: PropTypes.bool
+Header.propTypes = {
+  isMainPage: PropTypes.bool,
 };
 
 Header.defaultProps = {
-  isMainPage: true
+  isMainPage: true,
 };
+
+export default Header;

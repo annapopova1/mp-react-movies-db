@@ -1,12 +1,12 @@
-import React from "react";
+import React from 'react';
 import PropTypes from 'prop-types';
-import { Movie } from '../../models/Movie';
-import "./movieDetail.css";
+import Movie from '../../models/Movie';
+import './movieDetail.css';
 
-export const MovieDetail = ({ movie }) => (
+const MovieDetail = ({ movie }) => (
   <section>
     <div className="card flex-md-row mb-4 box-shadow">
-      <img className="big-movie-image" src={movie.posterPath} />
+      <img className="big-movie-image" src={movie.posterPath} alt="" />
       <div className="card-body d-flex flex-column align-items-start">
         <h3 className="card-title">
           {movie.title}
@@ -24,6 +24,8 @@ export const MovieDetail = ({ movie }) => (
   </section>
 );
 
-MovieDetail.PropTypes = {
-  movie: PropTypes.instanceOf(Movie)
-}
+MovieDetail.propTypes = {
+  movie: PropTypes.instanceOf(Movie).isRequired,
+};
+
+export default MovieDetail;

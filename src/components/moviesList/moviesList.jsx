@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
 import PropTypes from 'prop-types';
-import { MovieCard } from "../movieCard/movieCard";
-import { Movie } from "../../models/Movie";
+import MovieCard from '../movieCard/movieCard';
+import Movie from '../../models/Movie';
 
-export const MoviesList = ({ movies }) => (
+const MoviesList = ({ movies }) => (
   <div className="container">
     <div className="row">
       {movies.map(movie => (
@@ -15,6 +15,12 @@ export const MoviesList = ({ movies }) => (
   </div>
 );
 
-MoviesList.PropTypes = {
-  movies: PropTypes.arrayOf(Movie)
-}
+MoviesList.propTypes = {
+  movies: PropTypes.arrayOf(Movie),
+};
+
+MoviesList.defaultProps = {
+  movies: [],
+};
+
+export default MoviesList;
