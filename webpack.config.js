@@ -2,7 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const serverConf = require('./server/config');
 
 module.exports = (env, other) => {
@@ -30,6 +30,10 @@ module.exports = (env, other) => {
       path: path.resolve(__dirname, 'build')
     },
     resolve: {
+      modules: [
+        'node_modules',
+        path.resolve(__dirname, 'src')
+      ],
       extensions: ['.js', '.jsx', 'css']
     },
 
@@ -43,8 +47,8 @@ module.exports = (env, other) => {
         {
           test: /\.css$/,
           use: ExtractTextPlugin.extract({
-            fallback: "style-loader",
-            use: "css-loader"
+            fallback: 'style-loader',
+            use: 'css-loader'
           })
         }
       ]
@@ -57,8 +61,8 @@ module.exports = (env, other) => {
         cacheGroups: {
           vendors: {
             test: /[\\/]node_modules[\\/]/,
-            name: "vendors",
-            chunks: "all"
+            name: 'vendors',
+            chunks: 'all'
           }
         }
       }
