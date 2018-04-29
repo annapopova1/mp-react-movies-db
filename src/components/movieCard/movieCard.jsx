@@ -1,4 +1,6 @@
 import React from "react";
+import PropTypes from 'prop-types';
+import { Movie } from '../../models/Movie';
 import "./movieCard.css";
 
 export const MovieCard = ({ movie }) => (
@@ -13,3 +15,7 @@ export const MovieCard = ({ movie }) => (
     </div>
   </div>
 );
+
+MovieCard.PropTypes = {
+  movie: PropTypes.instanceOf(Movie)
+}

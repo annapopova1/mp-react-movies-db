@@ -1,4 +1,6 @@
 import React from "react";
+import PropTypes from 'prop-types';
+import { Movie } from '../../models/Movie';
 import "./movieDetail.css";
 
 export const MovieDetail = ({ movie }) => (
@@ -21,3 +23,7 @@ export const MovieDetail = ({ movie }) => (
     </div>
   </section>
 );
+
+MovieDetail.PropTypes = {
+  movie: PropTypes.instanceOf(Movie)
+}

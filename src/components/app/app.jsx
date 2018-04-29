@@ -105,7 +105,7 @@ export class App extends Component {
   render() {
     return (
       <ErrorHandler>
-        <Header isMainPage={true} />
+        <Header />
         <main className="container py-3">
           <SearchPanel searchByParam={this.state.searchByParam} searchString={this.state.searchString} searchHandler={this.handleSearch} />
           <NavPanel direction={'right'}

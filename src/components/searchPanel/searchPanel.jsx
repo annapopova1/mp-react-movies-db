@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import { NavPanel } from "../navPanel/navPanel";
 
 const ENTER_KEY_CODE = 13;
@@ -7,8 +8,8 @@ export class SearchPanel extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchByParam: props.searchByParam || 'title',
-      searchString: props.searchString || ''
+      searchByParam: props.searchByParam,
+      searchString: props.searchString
     };
   }
 
@@ -66,4 +67,14 @@ export class SearchPanel extends Component {
       </section>
     );
   }
+}
+
+SearchPanel.PropTypes = {
+  searchByParam: PropTypes.string,
+  searchString: PropTypes.string
+}
+
+SearchPanel.defaultProps = {
+  searchByParam: 'title',
+  searchString: ''
 }

@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import "./navPanel.css";
 
 export const NavPanel = ({ direction, primaryBrand, secondaryBrand, links, navBtn }) => (
@@ -21,3 +22,14 @@ export const NavPanel = ({ direction, primaryBrand, secondaryBrand, links, navBt
     }
   </nav>
 );
+
+NavPanel.PropTypes = {
+  direction: PropTypes.string,
+  primaryBrand: PropTypes.string,
+  secondaryBrand: PropTypes.string,
+  links: PropTypes.array,
+  navBtn: PropTypes.shape({
+    title: PropTypes.string,
+    handler: PropTypes.func
+  })
+}

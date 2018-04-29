@@ -1,5 +1,7 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import { MovieCard } from "../movieCard/movieCard";
+import { Movie } from "../../models/Movie";
 
 export const MoviesList = ({ movies }) => (
   <div className="container">
@@ -12,3 +14,7 @@ export const MoviesList = ({ movies }) => (
     </div>
   </div>
 );
+
+MoviesList.PropTypes = {
+  movies: PropTypes.arrayOf(Movie)
+}
