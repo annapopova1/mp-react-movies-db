@@ -5,13 +5,13 @@ import NavPanel from '../navPanel/navPanel';
 const ENTER_KEY_CODE = 13;
 
 export default class SearchPanel extends Component {
-  propTypes = {
+  static propTypes = {
     searchByParam: PropTypes.string,
     searchString: PropTypes.string,
-    searchHandler: PropTypes.func,
+    searchHandler: PropTypes.func.isRequired,
   };
 
-  defaultProps = {
+  static defaultProps = {
     searchByParam: 'title',
     searchString: '',
   };
@@ -25,7 +25,9 @@ export default class SearchPanel extends Component {
   }
 
   componentDidMount() {
-    this.searchBoxRef.value = this.state.searchString;
+    if (this.searchBoxRef) {
+      this.searchBoxRef.value = this.state.searchString;
+    }
   }
 
   onKeyUp = (event) => {

@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Header/> should render Header component for main page 1`] = `
+<header
+  className="container navbar navbar-dark bg-dark py-1"
+>
+  <span
+    className="navbar-brand"
+  >
+    Movies DB
+  </span>
+</header>
+`;
+
+exports[`<Header/> should render Header component for secondary page 1`] = `
+<header
+  className="container navbar navbar-dark bg-dark py-1"
+>
+  <span
+    className="navbar-brand"
+  >
+    Movies DB
+  </span>
+  <button
+    className="btn btn-outline-success"
+    type="submit"
+  >
+    SEARCH
+  </button>
+</header>
+`;
