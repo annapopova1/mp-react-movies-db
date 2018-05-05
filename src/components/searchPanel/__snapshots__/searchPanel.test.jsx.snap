@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SearchPanel/> should render SearchPanel component 1`] = `
+<section>
+  <h5>
+    FIND YOUR MOVIE
+  </h5>
+  <div
+    className="form-label-group"
+  >
+    <input
+      className="form-control"
+      id="searchBox"
+      onBlur={[Function]}
+      onKeyUp={[Function]}
+      placeholder="Search..."
+      type="text"
+    />
+  </div>
+  <NavPanel
+    direction="left"
+    links={
+      Array [
+        Object {
+          "active": false,
+          "handler": [Function],
+          "param": "title",
+          "title": "TITLE",
+        },
+        Object {
+          "active": true,
+          "handler": [Function],
+          "param": "director",
+          "title": "DIRECTOR",
+        },
+      ]
+    }
+    navBtn={
+      Object {
+        "handler": [Function],
+        "title": "SEARCH",
+      }
+    }
+    primaryBrand={null}
+    secondaryBrand="SEARCH BY"
+  />
+</section>
+`;

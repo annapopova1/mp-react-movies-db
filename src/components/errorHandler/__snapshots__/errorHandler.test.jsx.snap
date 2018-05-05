@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ErrorHandler/> should render child elements of ErrorHandler component 1`] = `<ComponentWithError />`;
+
+exports[`<ErrorHandler/> should render error content for cought exceptions 1`] = `
+<div
+  className="alert alert-danger"
+  role="alert"
+>
+  The application was breaking, try again later!
+</div>
+`;

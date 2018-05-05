@@ -18,6 +18,17 @@ module.exports = {
   ],
   collectCoverageFrom: [
     'src/**/*.{js,jsx}',
-    '!**/*.test.js?(x)'
+    '!**/*.test.js?(x)',
+    '!**/main.jsx',
+    '!**/app.1.jsx'
+  ],
+  moduleNameMapper: {
+    '^.+\\.(css|scss)$': 'identity-obj-proxy'
+  },
+  setupFiles: [
+    './test/jest-setup.js'
+  ],
+  snapshotSerializers: [
+    '<rootDir>/node_modules/enzyme-to-json/serializer'
   ]
 };
