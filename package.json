@@ -10,7 +10,8 @@
     "build:prod": "webpack --mode production",
     "test": "jest",
     "test:coverage": "jest --coverage",
-    "lint": "eslint --ext .jsx,.js src/ --fix"
+    "lint": "eslint --ext .jsx,.js src/ --fix",
+    "cypress:open": "cypress open"
   },
   "repository": {
     "type": "git",
@@ -43,6 +44,7 @@
     "babel-preset-react": "^6.24.1",
     "clean-webpack-plugin": "^0.1.19",
     "css-loader": "^0.28.11",
+    "cypress": "^2.1.0",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "enzyme-to-json": "^3.3.3",
