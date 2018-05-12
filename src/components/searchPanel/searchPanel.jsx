@@ -32,6 +32,7 @@ export default class SearchPanel extends Component {
 
   onKeyUp = (event) => {
     const { keyCode } = event;
+    this.onChangeSearchPattern();
 
     if (keyCode === ENTER_KEY_CODE) {
       this.handleSearch();
@@ -79,7 +80,7 @@ export default class SearchPanel extends Component {
  title: 'TITLE', param: 'title', active: this.state.searchByParam === 'title', handler: this.handleSearchBy,
 },
             {
- title: 'DIRECTOR', param: 'director', active: this.state.searchByParam === 'director', handler: this.handleSearchBy,
+ title: 'GENRE', param: 'genres', active: this.state.searchByParam === 'genres', handler: this.handleSearchBy,
 }]}
           navBtn={{ title: 'SEARCH', handler: this.handleSearch }}
         />
