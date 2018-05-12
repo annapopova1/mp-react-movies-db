@@ -4,7 +4,7 @@ export default class Movie {
   constructor(movie) {
     if (movie) {
       this.id = get(movie, 'id');
-      this.title = get(movie, 'name');
+      this.title = get(movie, 'title');
       this.tagline = get(movie, 'tagline');
       this.voteAvg = get(movie, 'vote_average', 0);
       this.voteCount = get(movie, 'vote_count', 0);

@@ -10,12 +10,12 @@ const MovieDetail = ({ movie }) => (
       <div className="card-body d-flex flex-column align-items-start">
         <h3 className="card-title">
           {movie.title}
-          <span className="badge badge-secondary ml-4 rating">{movie.voteAvg}</span>
+          { movie.voteAvg && <span className="badge badge-secondary ml-4 rating">{movie.voteAvg}</span> }
         </h3>
         {/* <p className="card-subtitle mb-2 text-muted">This is a wider card with supporting.</p> */}
         <p className="card-text text-muted">
           <span>{movie.releaseYear}</span>
-          <span className="ml-5">{movie.runtime} min</span>
+          {movie.runtime && <span className="ml-5">{movie.runtime} min</span>}
         </p>
         <p className="card-text">{movie.overview}</p>
 
