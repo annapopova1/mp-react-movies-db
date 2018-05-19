@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import NavPanel from '../navPanel/navPanel';
+import { searchBy, searchMovies } from '../../store/actions/moviesListActions';
 
 const ENTER_KEY_CODE = 13;
 
-export default class SearchPanel extends Component {
+class SearchPanelUI extends Component {
   static propTypes = {
     searchByParam: PropTypes.string,
     searchString: PropTypes.string,
-    searchHandler: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -16,45 +17,25 @@ export default class SearchPanel extends Component {
     searchString: '',
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      searchByParam: props.searchByParam,
-      searchString: props.searchString,
-    };
-  }
-
   componentDidMount() {
     if (this.searchBoxRef) {
-      this.searchBoxRef.value = this.state.searchString;
+      this.searchBoxRef.value = this.props.searchString;
     }
   }
 
   onKeyUp = (event) => {
     const { keyCode } = event;
-    this.onChangeSearchPattern();
-
     if (keyCode === ENTER_KEY_CODE) {
       this.handleSearch();
     }
   }
 
-  onChangeSearchPattern = () => {
-    this.setState({
-      ...this.state,
-      searchString: this.searchBoxRef.value,
-    });
-  }
-
   handleSearchBy = searchByParam => () => {
-    this.setState({
-      ...this.state,
-      searchByParam,
-    });
+    this.props.toggleSearchBy(searchByParam);
   }
 
   handleSearch = () => {
-    this.props.searchHandler({ ...this.state });
+    this.props.search(this.searchBoxRef.value);
   }
 
   render() {
@@ -68,7 +49,6 @@ export default class SearchPanel extends Component {
             className="form-control"
             placeholder="Search..."
             onKeyUp={this.onKeyUp}
-            onBlur={this.onChangeSearchPattern}
             ref={(node) => { this.searchBoxRef = node; }}
           />
         </div>
@@ -77,10 +57,10 @@ export default class SearchPanel extends Component {
           secondaryBrand="SEARCH BY"
           links={[
             {
- title: 'TITLE', param: 'title', active: this.state.searchByParam === 'title', handler: this.handleSearchBy,
+ title: 'TITLE', param: 'title', active: this.props.searchByParam === 'title', handler: this.handleSearchBy,
 },
             {
- title: 'GENRE', param: 'genres', active: this.state.searchByParam === 'genres', handler: this.handleSearchBy,
+ title: 'GENRE', param: 'genres', active: this.props.searchByParam === 'genres', handler: this.handleSearchBy,
 }]}
           navBtn={{ title: 'SEARCH', handler: this.handleSearch }}
         />
@@ -88,3 +68,23 @@ export default class SearchPanel extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  const { searchByParam, searchString } = state.moviesList;
+  return {
+    searchByParam,
+    searchString,
+  };
+};
+
+const mapDispatchToProps = dispatch => ({
+  toggleSearchBy: (searchByParam) => {
+    dispatch(searchBy(searchByParam));
+  },
+  search: (searchString) => {
+    dispatch(searchMovies(searchString));
+  },
+});
+
+const SearchPanel = connect(mapStateToProps, mapDispatchToProps)(SearchPanelUI);
+export default SearchPanel;
