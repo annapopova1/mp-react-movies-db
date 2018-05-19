@@ -8,10 +8,4 @@ describe('<App/>', () => {
     const app = shallow(<App />);
     expect(app).toMatchSnapshot();
   });
-
-  xtest('should handle soerting', () => {
-    const app = mount(<App />);
-
-    const link = app.find('.nav-link').at(1).simulate('click');
-  });
 });
