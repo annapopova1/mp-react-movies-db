@@ -14,12 +14,10 @@ export const saveMoviesByGenre = movies => ({
   movies,
 });
 
-export const loadMovie = id => (dispatch) => {
-  MovieService.findByid(id).then((movie) => {
-    dispatch(saveSelectedMovie(movie));
+export const loadMovie = id => async (dispatch) => {
+  const movie = await MovieService.findByid(id);
+  dispatch(saveSelectedMovie(movie));
 
-    MovieService.search(movie.genres, 'genres', 'release_date').then((movies) => {
-      dispatch(saveMoviesByGenre(movies));
-    });
-  });
+  const movies = await MovieService.search(movie.genres, 'genres', 'release_date');
+  dispatch(saveMoviesByGenre(movies));
 };

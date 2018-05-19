@@ -5,7 +5,7 @@ import {
   SORT_BY,
 } from '../actions/actionTypes';
 
-const initialState = {
+export const initialState = {
   searchByParam: 'title',
   searchString: '',
   sortByParam: 'release_date',

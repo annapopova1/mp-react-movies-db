@@ -1,60 +1,43 @@
 import React from 'react';
-import SearchPanel from './searchPanel';
+import { SearchPanelUI } from './searchPanel';
 
 describe('<SearchPanel/>', () => {
+  const param = 'genres';
+  const searchStr = 'test str';
+  const toggleSearchHandler = jest.fn();
+  const searchHandler = jest.fn();
+
   test('should render SearchPanel component', () => {
-    const handler = jest.fn();
-    const searchPanel = shallow(<SearchPanel
-      searchByParam="director"
-      searchString="test str"
-      searchHandler={handler}
+    const searchPanel = shallow(<SearchPanelUI
+      searchByParam={param}
+      searchString={searchStr}
+      toggleSearchBy={toggleSearchHandler}
+      search={searchHandler}
     />);
     expect(searchPanel).toMatchSnapshot();
   });
 
   test('should handle search actions', () => {
-    const param = 'director';
-    const searchStr = 'test str';
-    const handler = jest.fn();
-
-    const searchPanel = mount(<SearchPanel
+    const searchPanel = mount(<SearchPanelUI
       searchByParam={param}
       searchString={searchStr}
-      searchHandler={handler}
+      toggleSearchBy={toggleSearchHandler}
+      search={searchHandler}
     />);
 
-    const btn = searchPanel.find('button').first().simulate('click');
-    expect(handler).toBeCalledWith({
-      searchByParam: param,
-      searchString: searchStr,
-    });
+    searchPanel.find('button').first().simulate('click');
+    expect(searchHandler).toBeCalledWith(searchStr);
 
-    handler.mockClear();
+    searchHandler.mockClear();
 
-    // search by title with another text
     searchPanel.find('.nav-link').first().simulate('click');
-    const input = searchPanel.find('#searchBox').first().simulate('keyUp', {
-      keyCode: 80,
-    });
-    input.getDOMNode().value = 'changed text';
-    input.simulate('blur');
-    btn.simulate('click');
-    expect(handler).toBeCalledWith({
-      searchByParam: 'title',
-      searchString: 'changed text',
-    });
+    expect(toggleSearchHandler).toBeCalledWith('title');
 
-    handler.mockClear();
+    toggleSearchHandler.mockClear();
 
-    // search by clicking enter
-    input.getDOMNode().value = 'new text';
-    input.simulate('blur');
-    input.simulate('keyUp', {
+    searchPanel.find('#searchBox').first().simulate('keyUp', {
       keyCode: 13,
     });
-    expect(handler).toBeCalledWith({
-      searchByParam: 'title',
-      searchString: 'new text',
-    });
+    expect(searchHandler).toBeCalledWith(searchStr);
   });
 });

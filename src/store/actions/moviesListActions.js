@@ -12,12 +12,11 @@ export const saveSearchMovies = movies => ({
   movies,
 });
 
-const search = (dispatch, getState) => {
+const search = async (dispatch, getState) => {
   const { searchString, searchByParam, sortByParam } = getState().moviesList;
   if (!isEmpty(searchString)) {
-    MovieService.search(searchString, searchByParam, sortByParam).then((movies) => {
-      dispatch(saveSearchMovies(movies));
-    });
+    const movies = await MovieService.search(searchString, searchByParam, sortByParam);
+    dispatch(saveSearchMovies(movies));
   }
 };
 

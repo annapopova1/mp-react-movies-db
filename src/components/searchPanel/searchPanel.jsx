@@ -6,15 +6,19 @@ import { searchBy, searchMovies } from '../../store/actions/moviesListActions';
 
 const ENTER_KEY_CODE = 13;
 
-class SearchPanelUI extends Component {
+export class SearchPanelUI extends Component {
   static propTypes = {
     searchByParam: PropTypes.string,
     searchString: PropTypes.string,
+    toggleSearchBy: PropTypes.func,
+    search: PropTypes.func,
   };
 
   static defaultProps = {
     searchByParam: 'title',
     searchString: '',
+    toggleSearchBy: () => {},
+    search: () => {},
   };
 
   componentDidMount() {
