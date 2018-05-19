@@ -3,7 +3,7 @@ import {
   SAVE_MOVIES_BY_GENRE,
 } from '../actions/actionTypes';
 
-const initialState = {
+export const initialState = {
   movie: null,
   moviesByGenre: [],
 };

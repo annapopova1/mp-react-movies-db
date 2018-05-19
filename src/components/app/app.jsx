@@ -11,7 +11,7 @@ import { sortMovies } from '../../store/actions/moviesListActions';
 import Movie from '../../models/Movie';
 import './app.css';
 
-class AppUI extends Component {
+export class AppUI extends Component {
   static propTypes = {
     sortByParam: PropTypes.string,
     movies: PropTypes.arrayOf(PropTypes.instanceOf(Movie)),
