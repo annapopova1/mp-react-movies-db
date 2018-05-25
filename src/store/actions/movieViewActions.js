@@ -1,8 +1,13 @@
 import {
   SAVE_SELECTED_MOVIE,
   SAVE_MOVIES_BY_GENRE,
+  START_LOADING_MOVIE,
 } from './actionTypes';
 import MovieService from '../../services/MovieService';
+
+export const startLoadingMovie = () => ({
+  type: START_LOADING_MOVIE,
+});
 
 export const saveSelectedMovie = movie => ({
   type: SAVE_SELECTED_MOVIE,
@@ -15,6 +20,8 @@ export const saveMoviesByGenre = movies => ({
 });
 
 export const loadMovie = id => async (dispatch) => {
+  dispatch(startLoadingMovie());
+
   const movie = await MovieService.findByid(id);
   dispatch(saveSelectedMovie(movie));
 
