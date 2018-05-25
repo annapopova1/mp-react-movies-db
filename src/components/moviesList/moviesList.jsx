@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import MovieCard from '../movieCard/movieCard';
 import Movie from '../../models/Movie';
 
-const MoviesList = ({ movies }) => (
+const MoviesList = ({ movies, openDetailHandler }) => (
   <div className="container">
     {
       movies.length
       ?
         <div className="row">
           {movies.map(movie => (
-            <div key={movie.id} className="col-md-4">
+            <div key={movie.id} className="col-md-4" onClick={openDetailHandler(movie.id)}>
               <MovieCard movie={movie} />
             </div>
           ))}
@@ -25,10 +25,12 @@ const MoviesList = ({ movies }) => (
 
 MoviesList.propTypes = {
   movies: PropTypes.arrayOf(PropTypes.instanceOf(Movie)),
+  openDetailHandler: PropTypes.func,
 };
 
 MoviesList.defaultProps = {
   movies: [],
+  openDetailHandler: () => {},
 };
 
 export default MoviesList;

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import NavPanel from '../navPanel/navPanel';
 import { searchBy, searchMovies } from '../../store/actions/moviesListActions';
 
@@ -12,6 +13,8 @@ export class SearchPanelUI extends Component {
     searchString: PropTypes.string,
     toggleSearchBy: PropTypes.func,
     search: PropTypes.func,
+    match: PropTypes.shape({}).isRequired,
+    history: PropTypes.shape({}).isRequired,
   };
 
   static defaultProps = {
@@ -27,6 +30,13 @@ export class SearchPanelUI extends Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.match.params.searchQuery !== prevProps.match.params.searchQuery) {
+      this.searchBoxRef.value = this.props.match.params.searchQuery || this.props.searchString;
+      this.props.search(this.props.match.params.searchQuery);
+    }
+  }
+
   onKeyUp = (event) => {
     const { keyCode } = event;
     if (keyCode === ENTER_KEY_CODE) {
@@ -39,7 +49,7 @@ export class SearchPanelUI extends Component {
   }
 
   handleSearch = () => {
-    this.props.search(this.searchBoxRef.value);
+    this.props.history.push(`/search/${this.searchBoxRef.value}`);
   }
 
   render() {
@@ -91,4 +101,4 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const SearchPanel = connect(mapStateToProps, mapDispatchToProps)(SearchPanelUI);
-export default SearchPanel;
+export default withRouter(SearchPanel);

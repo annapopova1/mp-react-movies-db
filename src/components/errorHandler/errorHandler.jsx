@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 export default class ErrorHandler extends Component {
   static propTypes = {
-    children: PropTypes.node,
+    children: PropTypes.node.isRequired,
   };
 
   constructor(props) {

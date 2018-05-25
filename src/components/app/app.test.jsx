@@ -34,7 +34,7 @@ describe('<App/>', () => {
         movies={MOVIES_LIST}
         sortMovies={sortHandler}
       />
-                      </Provider>);
+    </Provider>);
 
     app.find('a').last().simulate('click');
     expect(sortHandler).toBeCalledWith('vote_average');
