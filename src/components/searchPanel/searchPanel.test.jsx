@@ -1,4 +1,5 @@
 import React from 'react';
+import { MemoryRouter } from 'react-router';
 import { SearchPanelUI } from './searchPanel';
 
 describe('<SearchPanel/>', () => {
@@ -6,6 +7,8 @@ describe('<SearchPanel/>', () => {
   const searchStr = 'test str';
   const toggleSearchHandler = jest.fn();
   const searchHandler = jest.fn();
+  const match = {};
+  const history = { push: jest.fn() };
 
   test('should render SearchPanel component', () => {
     const searchPanel = shallow(<SearchPanelUI
@@ -13,6 +16,8 @@ describe('<SearchPanel/>', () => {
       searchString={searchStr}
       toggleSearchBy={toggleSearchHandler}
       search={searchHandler}
+      match={match}
+      history={history}
     />);
     expect(searchPanel).toMatchSnapshot();
   });
@@ -23,10 +28,12 @@ describe('<SearchPanel/>', () => {
       searchString={searchStr}
       toggleSearchBy={toggleSearchHandler}
       search={searchHandler}
+      match={match}
+      history={history}
     />);
 
     searchPanel.find('button').first().simulate('click');
-    expect(searchHandler).toBeCalledWith(searchStr);
+    expect(history.push).toBeCalledWith(`/search/${searchStr}`);
 
     searchHandler.mockClear();
 
@@ -38,6 +45,6 @@ describe('<SearchPanel/>', () => {
     searchPanel.find('#searchBox').first().simulate('keyUp', {
       keyCode: 13,
     });
-    expect(searchHandler).toBeCalledWith(searchStr);
+    expect(history.push).toBeCalledWith(`/search/${searchStr}`);
   });
 });

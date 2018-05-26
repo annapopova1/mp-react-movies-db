@@ -23,6 +23,7 @@ exports[`<Header/> should render Header component for secondary page 1`] = `
   </span>
   <button
     className="btn btn-outline-success"
+    onClick={[Function]}
     type="submit"
   >
     SEARCH

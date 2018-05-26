@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 
-const Header = ({ location, history }) => {
+export const HeaderUI = ({ location, history }) => {
   const goBackToMainPage = () => history.push('/');
   return (
     <header className="container navbar navbar-dark bg-dark py-1">
@@ -14,9 +14,9 @@ const Header = ({ location, history }) => {
   );
 };
 
-Header.propTypes = {
+HeaderUI.propTypes = {
   location: PropTypes.shape({}).isRequired,
-  hitory: PropTypes.shape({}).isRequired,
+  history: PropTypes.shape({}).isRequired,
 };
 
-export default withRouter(Header);
+export default withRouter(HeaderUI);

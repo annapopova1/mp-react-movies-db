@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<NotFound/> should render NotFound component 1`] = `
+<div
+  className="alert alert-danger"
+>
+  The page is not found. Make sure you are using a correct URL.
+</div>
+`;

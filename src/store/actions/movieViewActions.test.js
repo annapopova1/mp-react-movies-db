@@ -47,6 +47,7 @@ describe('movieViewActions', () => {
 
     test('should create an async action to load movie', async () => {
       const expectedActions = [
+        { type: types.START_LOADING_MOVIE },
         { type: types.SAVE_SELECTED_MOVIE, movie: MOVIES_LIST[0] },
         { type: types.SAVE_MOVIES_BY_GENRE, movies: MOVIES_LIST },
       ];
