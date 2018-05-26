@@ -7,7 +7,7 @@ import MovieDetail from '../movieDetail/movieDetail';
 import { loadMovie } from '../../store/actions/movieViewActions';
 import Movie from '../../models/Movie';
 
-class MovieDetailContainerUI extends Component {
+export class MovieDetailContainerUI extends Component {
   static propTypes = {
     movie: PropTypes.instanceOf(Movie),
     moviesByGenre: PropTypes.arrayOf(PropTypes.instanceOf(Movie)),

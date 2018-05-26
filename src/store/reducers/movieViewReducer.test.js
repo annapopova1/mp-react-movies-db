@@ -12,7 +12,7 @@ describe('movieViewReducer', () => {
       type: types.SAVE_SELECTED_MOVIE,
       movie: MOVIES_LIST[0],
     };
-    expect(movieViewReducer({}, act)).toEqual({ movie: MOVIES_LIST[0] });
+    expect(movieViewReducer({}, act)).toEqual({ isMovieLoading: false, movie: MOVIES_LIST[0] });
   });
 
   it('should handle SAVE_MOVIES_BY_GENRE', () => {

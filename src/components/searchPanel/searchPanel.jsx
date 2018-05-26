@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import NavPanel from '../navPanel/navPanel';
 import { searchBy, searchMovies } from '../../store/actions/moviesListActions';
 
