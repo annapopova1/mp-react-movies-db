@@ -29,7 +29,6 @@ exports[`<MovieDetail/> should render MovieDetail component 1`] = `
         <span>
           2010
         </span>
-        0
       </p>
       <p
         className="card-text"
