@@ -1,6 +1,4 @@
 .movie-image {
-  height: 225px;
-  width: 100%;
   display: block;
   cursor: pointer;
 }
