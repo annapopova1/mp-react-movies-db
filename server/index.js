@@ -3,8 +3,7 @@ const serverConf = require('./config');
 
 const app = express();
 
-app.use(express.static('build'));
-
+app.use('/assets', express.static('build'));
 serverConf.configureExpress(app);
 
 app.listen(3005, function () {

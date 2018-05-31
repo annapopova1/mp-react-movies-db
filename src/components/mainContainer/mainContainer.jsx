@@ -10,7 +10,7 @@ import Movie from '../../models/Movie';
 export class MainContainerUI extends Component {
   static propTypes = {
     sortByParam: PropTypes.string,
-    movies: PropTypes.arrayOf(PropTypes.instanceOf(Movie)),
+    movies: PropTypes.arrayOf(PropTypes.shape({})),
     sortMovies: PropTypes.func,
     history: PropTypes.shape({}).isRequired,
   };

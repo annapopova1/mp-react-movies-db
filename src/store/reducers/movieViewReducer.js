@@ -2,9 +2,11 @@ import {
   SAVE_SELECTED_MOVIE,
   SAVE_MOVIES_BY_GENRE,
   START_LOADING_MOVIE,
+  DEACTIVATE_SSR_FLAG,
 } from '../actions/actionTypes';
 
 export const initialState = {
+  isSSR: true,
   isMovieLoading: false,
   movie: null,
   moviesByGenre: [],
@@ -17,6 +19,7 @@ export default (state = initialState, action) => {
         ...state,
         isMovieLoading: true,
       };
+
     case SAVE_SELECTED_MOVIE:
       return {
         ...state,
@@ -28,6 +31,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         moviesByGenre: action.movies,
+      };
+
+    case DEACTIVATE_SSR_FLAG:
+      return {
+        ...state,
+        isSSR: false,
       };
 
     default:
