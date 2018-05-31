@@ -4,17 +4,18 @@ import { connect } from 'react-redux';
 import MoviesList from '../moviesList/moviesList';
 import NavPanel from '../navPanel/navPanel';
 import MovieDetail from '../movieDetail/movieDetail';
-import { loadMovie } from '../../store/actions/movieViewActions';
-import Movie from '../../models/Movie';
+import { loadMovie, deactivateSSRFlag } from '../../store/actions/movieViewActions';
 
 export class MovieDetailContainerUI extends Component {
   static propTypes = {
-    movie: PropTypes.instanceOf(Movie),
-    moviesByGenre: PropTypes.arrayOf(PropTypes.instanceOf(Movie)),
+    movie: PropTypes.shape({}),
+    moviesByGenre: PropTypes.arrayOf(PropTypes.shape({})),
     loadMovie: PropTypes.func,
     isMovieLoading: PropTypes.bool,
     match: PropTypes.shape({}).isRequired,
     history: PropTypes.shape({}).isRequired,
+    isSSR: PropTypes.bool,
+    deactivateSSRFlag: PropTypes.func,
   };
 
   static defaultProps = {
@@ -22,10 +23,16 @@ export class MovieDetailContainerUI extends Component {
     moviesByGenre: [],
     loadMovie: () => {},
     isMovieLoading: false,
+    isSSR: true,
+    deactivateSSRFlag: () => {},
   };
 
   componentDidMount() {
-    this.props.loadMovie(this.props.match.params.movieId);
+    if (this.props.isSSR) {
+      this.props.deactivateSSRFlag();
+    } else {
+      this.props.loadMovie(this.props.match.params.movieId);
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -51,7 +58,7 @@ export class MovieDetailContainerUI extends Component {
                   <NavPanel
                     direction="left"
                     secondaryBrand="Films by"
-                    links={[{ title: `Genre: ${movie.genres.join(', ')}`, active: true }]}
+                    links={[{ title: `Genre: ${movie.genres.join(', ')}`, active: true, param: 'genres' }]}
                   />
                   <MoviesList movies={moviesByGenre} openDetailHandler={this.openMovieDetail} />
                 </Fragment>
@@ -63,8 +70,9 @@ export class MovieDetailContainerUI extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { movie, isMovieLoading, moviesByGenre } = state.movieView;
+  const { movie, isMovieLoading, moviesByGenre, isSSR } = state.movieView;
   return {
+    isSSR,
     movie,
     isMovieLoading,
     moviesByGenre,
@@ -75,6 +83,9 @@ const mapDispatchToProps = dispatch => ({
   loadMovie: (id) => {
     dispatch(loadMovie(id));
   },
+  deactivateSSRFlag: () => {
+    dispatch(deactivateSSRFlag());
+  }
 });
 
 const MovieDetailContainer = connect(mapStateToProps, mapDispatchToProps)(MovieDetailContainerUI);

@@ -17,7 +17,7 @@ const MovieCard = ({ movie }) => (
 );
 
 MovieCard.propTypes = {
-  movie: PropTypes.instanceOf(Movie).isRequired,
+  movie: PropTypes.shape({}).isRequired,
 };
 
 export default MovieCard;

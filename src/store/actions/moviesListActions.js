@@ -32,7 +32,7 @@ export const setSearchString = searchString => ({
 
 export const searchMovies = str => (dispatch, getState) => {
   dispatch(setSearchString(str));
-  search(dispatch, getState);
+  return search(dispatch, getState);
 };
 
 export const sortBy = sortByParam => ({

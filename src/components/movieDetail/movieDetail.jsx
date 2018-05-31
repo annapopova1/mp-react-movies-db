@@ -23,7 +23,7 @@ const MovieDetail = ({ movie }) => (
 );
 
 MovieDetail.propTypes = {
-  movie: PropTypes.instanceOf(Movie).isRequired,
+  movie: PropTypes.shape({}).isRequired,
 };
 
 export default MovieDetail;

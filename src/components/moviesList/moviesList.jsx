@@ -24,7 +24,7 @@ const MoviesList = ({ movies, openDetailHandler }) => (
 );
 
 MoviesList.propTypes = {
-  movies: PropTypes.arrayOf(PropTypes.instanceOf(Movie)),
+  movies: PropTypes.arrayOf(PropTypes.shape({})),
   openDetailHandler: PropTypes.func,
 };
 

@@ -2,6 +2,7 @@ import {
   SAVE_SELECTED_MOVIE,
   SAVE_MOVIES_BY_GENRE,
   START_LOADING_MOVIE,
+  DEACTIVATE_SSR_FLAG,
 } from './actionTypes';
 import MovieService from '../../services/MovieService';
 
@@ -28,3 +29,7 @@ export const loadMovie = id => async (dispatch) => {
   const movies = await MovieService.search(movie.genres, 'genres', 'release_date');
   dispatch(saveMoviesByGenre(movies));
 };
+
+export const deactivateSSRFlag = () => ({
+  type: DEACTIVATE_SSR_FLAG,
+});
