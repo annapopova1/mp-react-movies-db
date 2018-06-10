@@ -1,41 +1,53 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+// @flow
+import React, { type Node } from 'react';
 import './navPanel.css';
 
 /* eslint jsx-a11y/anchor-is-valid:0 */
 
-const NavPanel = ({
-  direction, primaryBrand, secondaryBrand, links, navBtn,
-}) => (
-  <nav className="navbar navbar-light navbar-expand-md">
-    {
-      primaryBrand && <span className="navbar-brand">{primaryBrand}</span>
-    }
-    <div className={direction === 'left' ? 'navbar-nav mr-auto' : 'navbar-nav ml-auto'}>
-      <span className="navbar-brand">{secondaryBrand}</span>
-      {
-        links.map(link =>
-          (link.active
-            ? <a key={link.param} className="nav-link active" href="#">{link.title}</a>
-            : <a key={link.param} className="nav-link" onClick={link.handler(link.param)} href="#">{link.title}</a>))
-      }
-    </div>
-    {
-      navBtn &&
-        <button className="btn btn-outline-success" type="button" onClick={navBtn.handler}>{navBtn.title}</button>
-    }
-  </nav>
-);
+type Props = {
+  direction: string,
+  primaryBrand: ?string,
+  secondaryBrand: string,
+  links: Array<{
+    active: boolean,
+    param: string,
+    title: string,
+    handler: Function,
+  }>,
+  navBtn: ?{
+    title: string,
+    handler: Function,
+  },
+};
 
-NavPanel.propTypes = {
-  direction: PropTypes.string,
-  primaryBrand: PropTypes.string,
-  secondaryBrand: PropTypes.string,
-  links: PropTypes.arrayOf(PropTypes.object),
-  navBtn: PropTypes.shape({
-    title: PropTypes.string,
-    handler: PropTypes.func,
-  }),
+const NavPanel = (props: Props): Node => {
+  const {
+    direction,
+    primaryBrand,
+    secondaryBrand,
+    links,
+    navBtn,
+  } = props;
+  return (
+    <nav className="navbar navbar-light navbar-expand-md">
+      {
+        primaryBrand && <span className="navbar-brand">{primaryBrand}</span>
+      }
+      <div className={direction === 'left' ? 'navbar-nav mr-auto' : 'navbar-nav ml-auto'}>
+        <span className="navbar-brand">{secondaryBrand}</span>
+        {
+          links.map(link =>
+            (link.active
+              ? <a key={link.param} className="nav-link active" href="#">{link.title}</a>
+              : <a key={link.param} className="nav-link" onClick={link.handler(link.param)} href="#">{link.title}</a>))
+        }
+      </div>
+      {
+        navBtn &&
+          <button className="btn btn-outline-success" type="button" onClick={navBtn.handler}>{navBtn.title}</button>
+      }
+    </nav>
+  );
 };
 
 NavPanel.defaultProps = {

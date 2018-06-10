@@ -21,3 +21,7 @@ export default (initialState) => {
   // const persistor = persistStore(store);
   return { store/* , persistor */ };
 };
+
+export type Reducers = typeof rootReducer;
+type $ExtractFunctionReturn = <V>(v: (...args: any) => V) => V;
+export type State = $ObjMap<Reducers, $ExtractFunctionReturn>;
