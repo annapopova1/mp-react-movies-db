@@ -5,7 +5,7 @@ const common = require('./webpack.config');
 module.exports = merge(common, {
     name: 'server',
     target: 'node',
-    entry: ['./serverRenderer.js'],
+    entry: ['./serverRenderer.jsx'],
     externals: [nodeExternals()],
     output: {
         filename: 'serverRenderer.js',

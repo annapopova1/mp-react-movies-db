@@ -29,18 +29,19 @@ describe('<MainContainer/>', () => {
         movies: [],
       },
     });
-
     const sortHandler = jest.fn();
-    const app = mount(<Provider store={store}>
-      <MemoryRouter>
-        <MainContainerUI
-          sortByParam="release_date"
-          movies={MOVIES_LIST}
-          sortMovies={sortHandler}
-          history={history}
-        />
-      </MemoryRouter>
-    </Provider>);
+    const getComp = () => (
+      <Provider store={store}>
+        <MemoryRouter>
+          <MainContainerUI
+            sortByParam="release_date"
+            movies={MOVIES_LIST}
+            sortMovies={sortHandler}
+            history={history}
+          />
+        </MemoryRouter>
+      </Provider>);
+    const app = mount(getComp());
 
     app.find('a').last().simulate('click');
     expect(sortHandler).toBeCalledWith('vote_average');

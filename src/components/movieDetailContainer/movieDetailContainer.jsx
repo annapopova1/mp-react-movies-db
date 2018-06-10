@@ -12,8 +12,14 @@ export class MovieDetailContainerUI extends Component {
     moviesByGenre: PropTypes.arrayOf(PropTypes.shape({})),
     loadMovie: PropTypes.func,
     isMovieLoading: PropTypes.bool,
-    match: PropTypes.shape({}).isRequired,
-    history: PropTypes.shape({}).isRequired,
+    match: PropTypes.shape({
+      params: PropTypes.shape({
+        movieId: PropTypes.string,
+      }),
+    }).isRequired,
+    history: PropTypes.shape({
+      push: PropTypes.func,
+    }).isRequired,
     isSSR: PropTypes.bool,
     deactivateSSRFlag: PropTypes.func,
   };
@@ -45,32 +51,40 @@ export class MovieDetailContainerUI extends Component {
     this.props.history.push(`/film/${movieId}`);
   };
 
+  renderLoading = () => (
+    <div className="alert alert-info">Movie is loading...</div>
+  );
+
+  renderTable = (movie, moviesByGenre) => (movie
+    ?
+      <Fragment>
+        <MovieDetail movie={movie} />
+        <NavPanel
+          direction="left"
+          secondaryBrand="Films by"
+          links={[{ title: `Genre: ${movie.genres.join(', ')}`, active: true, param: 'genres' }]}
+        />
+        <MoviesList movies={moviesByGenre} openDetailHandler={this.openMovieDetail} />
+      </Fragment>
+    : <div className="alert alert-warning">Movie is not available :-(</div>);
+
   render() {
     const { movie, isMovieLoading, moviesByGenre } = this.props;
     return (
       <Fragment>
-        {
-            isMovieLoading
-              ? <div className="alert alert-info">Movie is loading...</div>
-              : movie
-                ? <Fragment>
-                  <MovieDetail movie={movie} />
-                  <NavPanel
-                    direction="left"
-                    secondaryBrand="Films by"
-                    links={[{ title: `Genre: ${movie.genres.join(', ')}`, active: true, param: 'genres' }]}
-                  />
-                  <MoviesList movies={moviesByGenre} openDetailHandler={this.openMovieDetail} />
-                </Fragment>
-                : <div className="alert alert-warning">Movie is not available :-(</div>
-          }
+        { isMovieLoading
+          ? this.renderLoading()
+          : this.renderTable(movie, moviesByGenre)
+        }
       </Fragment>
     );
   }
 }
 
 const mapStateToProps = (state) => {
-  const { movie, isMovieLoading, moviesByGenre, isSSR } = state.movieView;
+  const {
+    movie, isMovieLoading, moviesByGenre, isSSR,
+  } = state.movieView;
   return {
     isSSR,
     movie,
@@ -85,7 +99,7 @@ const mapDispatchToProps = dispatch => ({
   },
   deactivateSSRFlag: () => {
     dispatch(deactivateSSRFlag());
-  }
+  },
 });
 
 const MovieDetailContainer = connect(mapStateToProps, mapDispatchToProps)(MovieDetailContainerUI);

@@ -12,8 +12,10 @@ export default class ErrorHandler extends Component {
   }
 
   componentDidCatch(error, info) {
+    /* eslint-disable no-console */
     console.log(error);
     console.log(info);
+    /* eslint-enable no-console */
     this.setState({ hasError: true });
   }
 

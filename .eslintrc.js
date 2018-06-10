@@ -5,6 +5,11 @@ module.exports = {
     "browser": true,
     "jest": true
   },
+  "globals": {
+    "shallow": true,
+    "mount": true,
+    "render": true
+  },
   "rules": {
     "max-len": [1, 120, 2, {ignoreComments: true}]
   }

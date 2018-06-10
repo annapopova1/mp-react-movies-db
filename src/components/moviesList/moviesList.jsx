@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import MovieCard from '../movieCard/movieCard';
-import Movie from '../../models/Movie';
+
+/* eslint jsx-a11y/click-events-have-key-events:0 */
+/* eslint jsx-a11y/no-static-element-interactions:0 */
 
 const MoviesList = ({ movies, openDetailHandler }) => (
   <div className="container">

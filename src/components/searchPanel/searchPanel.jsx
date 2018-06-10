@@ -13,8 +13,14 @@ export class SearchPanelUI extends Component {
     searchString: PropTypes.string,
     toggleSearchBy: PropTypes.func,
     search: PropTypes.func,
-    match: PropTypes.shape({}).isRequired,
-    history: PropTypes.shape({}).isRequired,
+    match: PropTypes.shape({
+      params: PropTypes.shape({
+        searchQuery: PropTypes.string,
+      }),
+    }).isRequired,
+    history: PropTypes.shape({
+      push: PropTypes.func.isRequired,
+    }).isRequired,
   };
 
   static defaultProps = {

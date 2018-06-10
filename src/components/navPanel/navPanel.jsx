@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './navPanel.css';
 
+/* eslint jsx-a11y/anchor-is-valid:0 */
+
 const NavPanel = ({
   direction, primaryBrand, secondaryBrand, links, navBtn,
 }) => (

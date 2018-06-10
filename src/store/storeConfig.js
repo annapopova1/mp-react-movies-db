@@ -11,12 +11,13 @@ import rootReducer from './reducers/root';
 
 // const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-const composeEnhancers = typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+/* eslint no-underscore-dangle: [2, { "allow": ["__REDUX_DEVTOOLS_EXTENSION_COMPOSE__"] }] */
+const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
 
 const enhancer = composeEnhancers(applyMiddleware(thunk));
 
 export default (initialState) => {
   const store = createStore(rootReducer, initialState, enhancer);
   // const persistor = persistStore(store);
-  return { store/*, persistor*/ };
+  return { store/* , persistor */ };
 };
