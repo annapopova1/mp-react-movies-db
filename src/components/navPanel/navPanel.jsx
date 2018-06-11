@@ -3,6 +3,8 @@ import React, { type Node } from 'react';
 import './navPanel.css';
 
 /* eslint jsx-a11y/anchor-is-valid:0 */
+/* eslint jsx-a11y/click-events-have-key-events:0 */
+/* eslint jsx-a11y/no-static-element-interactions:0 */
 
 type Props = {
   direction: string,
@@ -38,8 +40,8 @@ const NavPanel = (props: Props): Node => {
         {
           links.map(link =>
             (link.active
-              ? <a key={link.param} className="nav-link active" href="#">{link.title}</a>
-              : <a key={link.param} className="nav-link" onClick={link.handler(link.param)} href="#">{link.title}</a>))
+              ? <a key={link.param} className="nav-link active">{link.title}</a>
+              : <a key={link.param} className="nav-link" onClick={link.handler(link.param)}>{link.title}</a>))
         }
       </div>
       {
