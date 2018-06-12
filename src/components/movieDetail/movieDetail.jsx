@@ -1,15 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './movieDetail.css';
+import injectSheet from 'react-jss';
 
-const MovieDetail = ({ movie }) => (
+const styles = {
+  bigMovieImage: {
+    display: 'block',
+    border: 'solid 1px red',
+  },
+  rating: {
+    lineHeight: '1.7em',
+    borderRadius: '2em',
+  },
+};
+
+const MovieDetail = ({ classes, movie }) => (
   <section>
     <div className="card flex-md-row mb-4 box-shadow">
-      <img className="big-movie-image" src={movie.posterPath} alt="" />
+      <img className={classes.bigMovieImage} src={movie.posterPath} alt="" />
       <div className="card-body d-flex flex-column align-items-start">
         <h3 className="card-title">
           {movie.title}
-          {movie.voteAvg > 0 && <span className="badge badge-secondary ml-4 rating">{movie.voteAvg}</span>}
+          {movie.voteAvg > 0 && <span className={`badge badge-secondary ml-4 ${classes.rating}`}>{movie.voteAvg}</span>}
         </h3>
         <p className="card-text text-muted">
           <span>{movie.releaseYear}</span>
@@ -23,6 +34,11 @@ const MovieDetail = ({ movie }) => (
 
 MovieDetail.propTypes = {
   movie: PropTypes.shape({}).isRequired,
+  classes: PropTypes.shape({}),
 };
 
-export default MovieDetail;
+MovieDetail.defaultProps = {
+  classes: {},
+};
+
+export default injectSheet(styles)(MovieDetail);
