@@ -5,6 +5,7 @@ import MoviesList from '../moviesList/moviesList';
 import NavPanel from '../navPanel/navPanel';
 import MovieDetail from '../movieDetail/movieDetail';
 import { loadMovie, deactivateSSRFlag } from '../../store/actions/movieViewActions';
+import { genresSelector } from '../../store/selectors/movieSelectors';
 
 export class MovieDetailContainerUI extends Component {
   static propTypes = {
@@ -22,6 +23,7 @@ export class MovieDetailContainerUI extends Component {
     }).isRequired,
     isSSR: PropTypes.bool,
     deactivateSSRFlag: PropTypes.func,
+    genres: PropTypes.string,
   };
 
   static defaultProps = {
@@ -31,6 +33,7 @@ export class MovieDetailContainerUI extends Component {
     isMovieLoading: false,
     isSSR: true,
     deactivateSSRFlag: () => {},
+    genres: '',
   };
 
   componentDidMount() {
@@ -55,26 +58,31 @@ export class MovieDetailContainerUI extends Component {
     <div className="alert alert-info">Movie is loading...</div>
   );
 
-  renderTable = (movie, moviesByGenre) => (movie
+  renderTable = (movie, moviesByGenre, genres) => (movie
     ?
       <Fragment>
         <MovieDetail movie={movie} />
         <NavPanel
           direction="left"
           secondaryBrand="Films by"
-          links={[{ title: `Genre: ${movie.genres.join(', ')}`, active: true, param: 'genres' }]}
+          links={[{ title: `Genre: ${genres}`, active: true, param: 'genres' }]}
         />
         <MoviesList movies={moviesByGenre} openDetailHandler={this.openMovieDetail} />
       </Fragment>
     : <div className="alert alert-warning">Movie is not available :-(</div>);
 
   render() {
-    const { movie, isMovieLoading, moviesByGenre } = this.props;
+    const {
+      movie,
+      isMovieLoading,
+      moviesByGenre,
+      genres,
+    } = this.props;
     return (
       <Fragment>
         { isMovieLoading
           ? this.renderLoading()
-          : this.renderTable(movie, moviesByGenre)
+          : this.renderTable(movie, moviesByGenre, genres)
         }
       </Fragment>
     );
@@ -90,6 +98,7 @@ const mapStateToProps = (state) => {
     movie,
     isMovieLoading,
     moviesByGenre,
+    genres: genresSelector(state),
   };
 };
 
