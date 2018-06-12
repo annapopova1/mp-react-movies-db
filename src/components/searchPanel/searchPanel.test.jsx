@@ -1,5 +1,4 @@
 import React from 'react';
-import { MemoryRouter } from 'react-router';
 import { SearchPanelUI } from './searchPanel';
 
 describe('<SearchPanel/>', () => {

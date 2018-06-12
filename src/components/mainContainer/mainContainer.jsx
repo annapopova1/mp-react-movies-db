@@ -1,36 +1,51 @@
-import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
+// @flow
+import React, { Component, Fragment, type Node } from 'react';
+import type { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import SearchPanel from '../searchPanel/searchPanel';
 import MoviesList from '../moviesList/moviesList';
 import NavPanel from '../navPanel/navPanel';
 import { sortMovies } from '../../store/actions/moviesListActions';
+import { deactivateSSRFlag } from '../../store/actions/movieViewActions';
 import Movie from '../../models/Movie';
+import { State } from '../../store/storeConfig';
 
-export class MainContainerUI extends Component {
-  static propTypes = {
-    sortByParam: PropTypes.string,
-    movies: PropTypes.arrayOf(PropTypes.shape({})),
-    sortMovies: PropTypes.func,
-    history: PropTypes.shape({}).isRequired,
-  };
+type Props = {
+  sortByParam: string,
+  movies: Array<Movie>,
+  sortMovies: Function,
+  history: {
+    push: Function,
+  },
+  isSSR: boolean,
+  deactivateSSRFlag: Function,
+};
 
+export class MainContainerUI extends Component<Props> {
   static defaultProps = {
     sortByParam: 'release_date',
     movies: [],
     sortMovies: () => {},
+    isSSR: true,
+    deactivateSSRFlag: () => {},
   };
 
-  handleSort = sortByParam => (e) => {
+  componentDidMount() {
+    if (this.props.isSSR) {
+      this.props.deactivateSSRFlag();
+    }
+  }
+
+  handleSort = (sortByParam: string) => (e: SyntheticEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     this.props.sortMovies(sortByParam);
   };
 
-  openMovieDetail = movieId => () => {
+  openMovieDetail = (movieId: string) => () => {
     this.props.history.push(`/film/${movieId}`);
   };
 
-  render() {
+  render(): Node {
     const { sortByParam, movies } = this.props;
     const moviesCount = movies.length ? `${movies.length} movies found` : '';
     return (
@@ -42,10 +57,16 @@ export class MainContainerUI extends Component {
           secondaryBrand="Sort by"
           links={[
             {
-              title: 'release date', param: 'release_date', active: sortByParam === 'release_date', handler: this.handleSort,
+              title: 'release date',
+              param: 'release_date',
+              active: sortByParam === 'release_date',
+              handler: this.handleSort,
             },
             {
-              title: 'rating', param: 'vote_average', active: sortByParam === 'vote_average', handler: this.handleSort,
+              title: 'rating',
+              param: 'vote_average',
+              active: sortByParam === 'vote_average',
+              handler: this.handleSort,
             },
           ]}
         />
@@ -55,17 +76,21 @@ export class MainContainerUI extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: State) => {
   const { movies, sortByParam } = state.moviesList;
   return {
     movies,
     sortByParam,
+    isSSR: state.movieView.isSSR,
   };
 };
 
-const mapDispatchToProps = dispatch => ({
-  sortMovies: (sortParam) => {
+const mapDispatchToProps = (dispatch: Dispatch<*>): Object => ({
+  sortMovies: (sortParam: string) => {
     dispatch(sortMovies(sortParam));
+  },
+  deactivateSSRFlag: () => {
+    dispatch(deactivateSSRFlag());
   },
 });
 

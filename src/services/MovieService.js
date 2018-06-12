@@ -10,7 +10,12 @@ class MovieService {
 
   search(searchString, searchBy, sortBy) {
     const arraySymbol = isArray(searchString) ? '[]' : '';
-    return fetch(`${this.url}movies?search${arraySymbol}=${searchString}&searchBy=${searchBy}&sortBy=${sortBy}&sortOrder=desc&offset=0&limit=50`, {
+    const search = `search${arraySymbol}=${searchString}`;
+    const searchByParam = `searchBy=${searchBy}`;
+    const sortByparam = `sortBy=${sortBy}`;
+    const sortOrder = 'sortOrder=desc';
+    const paging = 'offset=0&limit=50';
+    return fetch(`${this.url}movies?${search}&${searchByParam}&${sortByparam}&${sortOrder}&${paging}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -22,7 +27,9 @@ class MovieService {
       return response.json();
     }).then(result => result.data.map(item => new Movie(item)))
       .catch((e) => {
+        /* eslint-disable no-console */
         console.log(e);
+        /* eslint-enable no-console */
         return [];
       });
   }
@@ -40,7 +47,9 @@ class MovieService {
       return response.json();
     }).then(result => new Movie(result))
       .catch((e) => {
+        /* eslint-disable no-console */
         console.log(e);
+        /* eslint-enable no-console */
         return null;
       });
   }

@@ -3,7 +3,7 @@
 exports[`<MovieDetailContainer/> should render MovieDetailContainer component 1`] = `
 <React.Fragment>
   <React.Fragment>
-    <MovieDetail
+    <Jss(MovieDetail)
       movie={
         Movie {
           "budget": 0,
@@ -32,7 +32,7 @@ exports[`<MovieDetailContainer/> should render MovieDetailContainer component 1`
           Object {
             "active": true,
             "param": "genres",
-            "title": "Genre: genre1, genre2",
+            "title": "Genre: ",
           },
         ]
       }

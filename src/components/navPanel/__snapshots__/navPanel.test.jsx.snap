@@ -14,14 +14,12 @@ exports[`<NavPanel/> should render NavPanel component to show Search By panel 1`
     </span>
     <a
       className="nav-link active"
-      href="#"
       key="title"
     >
       TITLE
     </a>
     <a
       className="nav-link"
-      href="#"
       key="director"
     >
       DIRECTOR
@@ -56,14 +54,12 @@ exports[`<NavPanel/> should render NavPanel component to show Sort By panel 1`] 
     </span>
     <a
       className="nav-link active"
-      href="#"
       key="releaseDate"
     >
       release date
     </a>
     <a
       className="nav-link"
-      href="#"
       key="voteAvg"
     >
       rating
